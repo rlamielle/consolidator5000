@@ -6,38 +6,80 @@
 
 <body>
 Manager Group Descriptions
-</body>
 
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+	
+  
 <script type="text/javascript" src="jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="jquery-ui-1.8.23.custom.min.js"></script>
+<script type="text/javascript" src="managers.js"></script>
+
 <script>
 	$(function() {
 		var availableTags = [
-			"ActionScript",
-			"AppleScript",
-			"Asp",
-			"BASIC",
-			"C",
-			"C++",
-			"Clojure",
-			"COBOL",
-			"ColdFusion",
-			"Erlang",
-			"Fortran",
-			"Groovy",
-			"Haskell",
-			"Java",
-			"JavaScript",
-			"Lisp",
-			"Perl",
-			"PHP",
-			"Python",
-			"Ruby",
-			"Scala",
-			"Scheme"
+			
+		
+			/*"Bob_Smith",
+			"Robert_Smith",
+			"Prakh_Kubi",
+			"Hanny_Chess",
+			"Eddie_Bower",
+			"Macy_Penny",
+			"Wally_Marty",
+			"Guy_Nexus",
+			"Cordy_Blue",
+			"May_Flour"
+			*/
 		];
-		$( "#tags" ).autocomplete({
-			source: availableTags
+		managers.forEach(function(manager) {
+			availableTags.push(manager.id);
+		});
+	
+	/*
+		function testMe(kitty, doggy) {
+			kitty.meow();
+			doggy.bark();
+		}
+	*/
+		var tagsElement = $("#tags");
+		tagsElement.autocomplete({
+			source: availableTags,
+			select: function( event, ui ) {
+							var str1="<li>";
+							var str2;
+							managers.forEach(function(manager) {
+								if (manager.id === ui.item.value) {
+									str2="<strong>Manager's Name:</strong>" + " " + manager.name;
+								}
+							});
+							var str3="<br>";
+							var str4;
+							managers.forEach(function(manager) {
+								if (manager.id === ui.item.value) {
+									str4="<strong>Location:</strong>" + " " + manager.location;
+								}
+							});
+							var str5="<br>";
+							var str6;
+							managers.forEach(function(manager) {
+								if (manager.id === ui.item.value) {
+									str6="<strong>Group Name:</strong>" + " " + manager.group;
+								}
+							});
+							var str7="<br><br>";
+							var str8;
+							managers.forEach(function(manager) {
+								if (manager.id === ui.item.value) {
+									str8=manager.description;
+								}
+							});
+							var str9="<br><br>";
+							var str10="</li>";
+							var liAdd= str1 + str2 + str3 + str4 + str5 + str6 + str7 + str8 + str9 + str10;
+			                $('#ManagerGDS').append(liAdd);
+							
+						  
+					}
 		});
 	});
 	</script>
@@ -45,14 +87,41 @@ Manager Group Descriptions
 <div class="demo">
 
 <div class="ui-widget">
-	<label for="tags">Tags: </label>
+	<label for="tags">Manager: </label>
 	<input id="tags">
 </div>
 
 </div><!-- End demo -->
 
+<ol id="ManagerGDS">
+</ol>
+
+<!--
+<ol id="ManagerGDS">
+<li>Guy Nexus's Group</li>
+<li>Bob_Smith</li>
+</ol>
+-->
+<!--
+<ol id="ManagerGDS">
+<li><div id="Guy_Nexus">
+<h4><strong>Manager's Name:</strong> Guy Nexus</h4>
+<p>Guy's team likes to play with swords and not actually work...then go to the beach. You should work for them</p>
+</div>
+</li>
+<li>
+<div id="Bob_Smith">
+<h4><strong>Manager's Name:</strong> Bob Smith</h4>
+<p>Bob's team is very serious and hacks on code all day and all night, we have cot's for your sleeping pleasure, if you do that sort of thing.</p>
+</div>
+</li>
+</ol>
+-->
+
 <div class="demo-description" style="display: none; ">
 <p>The Autocomplete widgets provides suggestions while you type into the field. Here the suggestions are tags for programming languages, give "ja" (for Java or JavaScript) a try.</p>
 <p>The datasource is a simple JavaScript array, provided to the widget using the source-option.</p>
 </div>
+</body>
+
 </html>
